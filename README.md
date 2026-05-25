@@ -14,12 +14,7 @@ Proxmox Host
     ├── Git Repository
     │   │
     │   └── /opt/soc-menu
-    │       │
-    │       ├── index.html
-    │       ├── style.css
-    │       ├── script.js
-    │       └── assets/
-    │
+    │       
     └── SSH Server
         │
         └── Allows Git / SCP / Remote Access
