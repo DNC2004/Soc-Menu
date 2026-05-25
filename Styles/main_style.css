@@ -142,6 +142,17 @@ body {
   animation: fadeUp 0.5s 0.35s ease both;
 }
 
+.bottom-right-image {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 350px;   
+  height: auto;
+  z-index: 9999;
+  opacity: 0.9;  
+  pointer-events: none; 
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
