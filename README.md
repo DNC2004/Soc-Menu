@@ -100,3 +100,13 @@ soc-menu/
 ```
 
 ---
+
+# Main Page Ui
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/83cace12-edbf-4206-96ef-decbf846d400" />
+
+---
+
+# Auxialiary Modules Ui
+<img width="1920" height="1032" alt="Captura de ecrã 2026-05-28 193119" src="https://github.com/user-attachments/assets/233e2e7a-1f14-40c6-a7d8-e916812ba867" />
+
+---
