@@ -171,6 +171,16 @@ body {
   pointer-events: none; 
 }
 
+.bottom-left-image {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 20px;   
+  height: auto;
+  z-index: 9999;
+  opacity: 0.9;   
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
