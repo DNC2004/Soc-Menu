@@ -70,7 +70,7 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 240px);
+  grid-template-columns: repeat(4, 240px);
   gap: 1rem;
 }
 
