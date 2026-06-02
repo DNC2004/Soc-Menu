@@ -78,6 +78,8 @@ function normalizeItem(report) {
       info.status ||
       report.malstatus ||
       (signatures.length ? "completed" : "unknown"),
+    analysis_url: report.analysis_url || "",
+    report_url: report.analysis_report_url || ""
   };
 }
 
@@ -121,6 +123,8 @@ function renderTable() {
     <td>${scoreBadge(item.score)}</td>
     <td>${shortHash(item.sha256)}</td>
     <td>${item.signatures}</td>
+    <td>${item.analysis_url? `<a href="${item.analysis_url}" target="_blank">Open</a>`: "-"}
+</td>
     <td>${escapeHtml(item.status)}</td>
   </tr>`).join("");
 
