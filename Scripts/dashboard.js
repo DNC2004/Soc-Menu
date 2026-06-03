@@ -15,7 +15,7 @@ const statClean = document.getElementById("statClean");
 
 async function fetchData() {
   try {
-    const response = await fetch("http://localhost:3000/api/analyses");
+    const response = await fetch("http://0.0.0.0:3000/api/analyses");
     const data = await response.json();
     analyses = normalizeAnalyses(data);
     updateStats();
