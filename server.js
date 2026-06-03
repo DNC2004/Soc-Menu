@@ -29,6 +29,6 @@ app.get("/api/analyses", (req, res) => {
   }
 });
 
-app.listen(3000, "0.0.0.0",() => {
-  console.log("API running on http:/0.0.0.0:3000");
+app.listen(3000, () => {
+  console.log("API running on port 3000");
 });
