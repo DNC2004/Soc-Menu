@@ -12,10 +12,12 @@ const statTotal = document.getElementById("statTotal");
 const statMalicious = document.getElementById("statMalicious");
 const statSuspicious = document.getElementById("statSuspicious");
 const statClean = document.getElementById("statClean");
+const fileInput = document.getElementById("fileInput")
 
 async function fetchData() {
   try {
-    const response = await fetch("http://172.20.2.29:3000/api/analyses");
+    const response = await fetch("http://172.20.2.29:3000/api/analyses"); //Ip Contentor
+    //const response = await fetch("http://127.0.0.1:3000/api/analyses"); //Ip LocalHost
     const data = await response.json();
     analyses = normalizeAnalyses(data);
     updateStats();
@@ -178,6 +180,27 @@ function escapeHtml(text) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+async function uploadFile() {
+  const file = fileInput.files[0];
+  if (!file){
+    alert("Nenhum ficheiro inserido");
+    return;
+  }
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await fetch(
+    "http://172.20.2.29:3000/api/upload",
+    {
+      method: "POST", 
+      body:formData
+    }
+  );
+  const result = await response.json();
+  console.log(result);
+  alert("Uploade Completo");
+
 }
 
 refreshBtn.addEventListener("click", fetchData);
