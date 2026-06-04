@@ -54,6 +54,8 @@ function normalizeItem(report) {
       info.startedon ||
       report.timestamp ||
       "",
+    id: report.id ?? info.id ?? null,
+      
     filename:
       report.filename ||
       targetFile.name ||
@@ -121,6 +123,7 @@ function renderTable() {
 
   alertBody.innerHTML = page.map(item => `<tr>
     <td>${formatTime(item.created_at)}</td>
+    <td>${item.id ?? "-"}</td>
     <td>${escapeHtml(item.filename)}</td>
     <td>${scoreBadge(item.score)}</td>
     <td>${shortHash(item.sha256)}</td>
