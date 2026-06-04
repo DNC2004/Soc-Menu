@@ -2,11 +2,23 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
+const multer = require("multer");
 
 const app = express();
 app.use(cors());
 
 const DATA_DIR = path.join(__dirname, "Private");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "Private"));
+  },
+  filename: (req,file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({storage});
 
 app.get("/api/analyses", (req, res) => {
   try {
@@ -27,6 +39,11 @@ app.get("/api/analyses", (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to read data" });
   }
+});
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  console.log("Uploaded:", req.file);
+  res.json({success: true});
 });
 
 app.listen(3000, () => {
