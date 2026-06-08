@@ -207,5 +207,5 @@ async function uploadFile() {
 }
 
 refreshBtn.addEventListener("click", fetchData);
-setInterval(fetchData, 60000);
+setInterval(fetchData, 300000);
 fetchData();
