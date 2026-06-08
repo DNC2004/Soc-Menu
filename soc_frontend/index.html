@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOC Menu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- CSS file -->
+  <link rel="stylesheet" href="/Styles/main_style.css" />
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>ENDIH</h1>
+    <h1>Security Operations Center</h1>
+    <p>Escolha o Módulo que Deseja Utilizar</p>
+  </header>
+
+  <main class="grid">
+
+    <!-- Ip Faculdade https://172.20.2.13:8006 -->
+    <a href="https://172.20.2.13:8006/" class="card" target="_blank">
+      <div class="card-icon">
+        <img src="/Images/proxmox_logo.png" width="20" height="20" />
+      </div>
+      <div class="card-title">Proxmox</div>
+      <div class="card-desc">Máquina Virtuais para monitoramento | Ambiente SandBox | Contentores Docker</div>
+      <div class="card-link">
+        Open
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </div>
+    </a>
+
+    <!-- Ip Faculdade https://172.20.2.134 -->
+    <a href="https://172.20.2.108/" class="card" target="_blank">
+      <div class="card-icon">
+        <img src="/Images/wazuh_logo_small.png" width="20" height="20" />
+      </div>
+      <div class="card-title">Wazuh Manager</div>
+      <div class="card-desc">Central de monitorização | Integração com VirusTotal & Any Run | Sensor Suricata</div>
+      <div class="card-link">
+        Open
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </div>
+    </a>
+
+    <a href="dashboard.html" class="card">
+      <div class="card-icon">
+        <img src="/Images/dashboard_icon.png" width="20" height="20" />
+      </div>
+      <div class="card-title">DashBoard CAPE</div>
+      <div class="card-desc">Análises Anteriormente Realizadas a Malware</div>
+      <div class="card-link">
+        Open
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </div>
+    </a>
+
+    <a href="aux_mod.html" class="card">
+      <div class="card-icon">
+        <img src="/Images/file_icon.png" width="20" height="20" />
+      </div>
+      <div class="card-title">Módulos Auxiliares</div>
+      <div class="card-desc">Conversor de Logs Txt para Pdf | Documentação</div>
+      <div class="card-link">
+        Open
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </div>
+    </a>
+
+  </main>
+
+  <footer class="footer">SOC Project &nbsp;·&nbsp; v1.2.0</footer>
+  <footer class="footer">ENIDH - LEIC 2026 - 14058 - 14053</footer>
+  <!-- <a href="https://www.youtube.com/watch?v=Aq5WXmQQooo"><img src="/Images/wombat.png" class="bottom-left-image" alt="logo" /></a> -->
+  <img src="/Images/enidh_logo.png" class="bottom-right-image" alt="logo" />
+
+</body>
+</html>

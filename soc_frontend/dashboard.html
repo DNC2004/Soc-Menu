@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAPE Dashboard</title>
+  <link rel="stylesheet" href="/Styles/dashboard.css">
+</head>
+<body>
+  <a class="back-link" href="index.html">← Back</a>
+
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <h1>Dashboard de Análises do CAPEv2</h1>
+        <div class="topbar-sub">Análises de Malware Guardadas</div>
+      </div>
+      <div class="file-Input">
+        <input type="file" id="fileInput" accept=".json">
+
+        <button
+          class="upload-btn"
+          onclick="uploadFile()"
+        >
+          Novos Reports
+        </button>
+      </div>      
+      <div class="topbar-right">
+        <button class="refresh-btn" id="refreshBtn" type="button">Refresh</button>
+        <div class="last-updated">Last updated: <span id="lastUpdated">—</span></div>
+      </div>
+    </header>
+
+    <section class="stats-grid">
+      <div class="stat-card stat-card--critical">
+        <div class="stat-label">Total Analyses</div>
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-sub">All recorded submissions</div>
+      </div>
+
+      <div class="stat-card stat-card--high">
+        <div class="stat-label">High Risk</div>
+        <div class="stat-value" id="statMalicious">0</div>
+        <div class="stat-sub">Score 7+</div>
+      </div>
+
+      <div class="stat-card stat-card--medium">
+        <div class="stat-label">Suspicious</div>
+        <div class="stat-value" id="statSuspicious">0</div>
+        <div class="stat-sub">Score 4–6</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Low Risk</div>
+        <div class="stat-value" id="statClean">0</div>
+        <div class="stat-sub">Score below 4</div>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <div class="table-header">
+        <div>
+          <div class="table-title">Recent analyses</div>
+          <div class="table-subtitle" id="tableCount">0 analyses</div>
+        </div>
+
+        <div class="table-filters">
+          <select id="filterScore" class="filter-select">
+            <option value="">All Scores</option>
+            <option value="high">High Risk</option>
+            <option value="medium">Suspicious</option>
+            <option value="low">Low Risk</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="alert-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>ID</th>
+              <th>Sample</th>
+              <th>Score</th>
+              <th>SHA256</th>
+              <th>Signatures</th>
+              <th>Análise</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="alertTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <span id="paginationSummary">Page 1</span>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/Scripts/dashboard.js"></script>
+</body>
+</html>

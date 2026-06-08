@@ -1,0 +1,27 @@
+services:
+
+  soc-backend:
+    build: ../soc_backend
+    container_name: soc-backend
+    restart: unless-stopped
+    volumes:
+      - ../backend/data:/app/Private
+    networks:
+      - soc-network
+
+  soc-menu:
+    image: nginx
+    container_name: soc-menu
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ../frontend:/usr/share/nginx/html:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - soc-backend
+    networks:
+      - soc-network
+
+networks:
+  soc-network:
