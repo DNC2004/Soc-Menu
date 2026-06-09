@@ -154,7 +154,7 @@ Because the frontend directory is mounted as a read-only volume into the Nginx c
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/<your-org>/Soc_Dashboard.git
+git clone https://github.com/DNC2004/Soc_Dashboard.git
 cd Soc_Dashboard
 ```
 
