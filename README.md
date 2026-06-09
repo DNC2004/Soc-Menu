@@ -1,6 +1,6 @@
 # SOC Dashboard — ENIDH LEIC 2026
 
-A Security Operations Center (SOC) web portal built for ENIDH, providing a centralized hub for infrastructure monitoring tools and a CAPEv2 malware analysis dashboard.
+A Security Operations Center (SOC) web portal built for 3rd year final project "Real Time Malware Lab", providing a centralized hub for infrastructure monitoring tools and a CAPEv2 malware analysis dashboard.
 
 ---
 
@@ -257,4 +257,4 @@ Both services communicate over the internal `soc-network` bridge network.
 
 ---
 
-*ENIDH — LEIC 2026 — 14058 · 14053*
+*ENIDH — LEIC 2026 — 3rd Year Final Project*
