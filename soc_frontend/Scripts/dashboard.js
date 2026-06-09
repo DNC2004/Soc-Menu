@@ -1,8 +1,10 @@
+// Page Vars
 const PAGE_SIZE = 20;
 let analyses = [];
 let filtered = [];
 let currentPage = 1;
 
+// Page items vars
 const refreshBtn = document.getElementById("refreshBtn");
 const filterScore = document.getElementById("filterScore");
 const alertBody = document.getElementById("alertTableBody");
@@ -14,28 +16,32 @@ const statSuspicious = document.getElementById("statSuspicious");
 const statClean = document.getElementById("statClean");
 const fileInput = document.getElementById("fileInput")
 
+// Function to get analysis from the backend on server.js
 async function fetchData() {
   try {
-    const response = await fetch("/api/analyses"); //Ip Contentor
-    //const response = await fetch("http://127.0.0.1:3000/api/analyses"); //Ip LocalHost
+    const response = await fetch("/api/analyses"); // Backend route
     const data = await response.json();
     analyses = normalizeAnalyses(data);
+    // Update the page
     updateStats();
     applyFilters();
     document.getElementById("lastUpdated").textContent =
       new Date().toLocaleTimeString();
     return analyses;
+
   } catch (err) {
     console.error(err);
   }
 }
 
+// Function to get the information from the json files 
 function normalizeAnalyses(data) {
   if (Array.isArray(data)) return data.map(normalizeItem);
   if (data && typeof data === "object") return [normalizeItem(data)];
   return [];
 }
 
+// Function to get the information for each label from the json files 
 function normalizeItem(report) {
   const info = report.info || report.AnalysisInfo || {};
   const target = report.target || {};
@@ -47,37 +53,42 @@ function normalizeItem(report) {
       : [];
 
   return {
-    created_at:
+    created_at: // Time in which the analysis ended
       report.created_at ||
       info.started ||
       info.starttime ||
       info.startedon ||
       report.timestamp ||
       "",
-    id: report.id ?? info.id ?? null,
+
+    id: report.id ?? info.id ?? null, // Analysis Id inside CAPEv2
       
-    filename:
+    filename: // Sample name tested
       report.filename ||
       targetFile.name ||
       target.file_name ||
       target.name ||
       report.name ||
       "-",
-    score: Number(
+
+    score: Number( // Final score of the analysis 
       report.score ??
         info.score ??
         info.malscore ??
         signatures.length ??
         0
     ),
-    sha256:
+
+    sha256: // Sha256 codification from the sample
       report.sha256 ||
       targetFile.sha256 ||
       target.sha256 ||
       report.targetsha256 ||
       "",
-    signatures: signatures.length,
-    status:
+
+    signatures: signatures.length, // Number of malicious tasks done by the sample
+
+    status: // Final status 
       report.status ||
       info.status ||
       report.malstatus ||
@@ -87,6 +98,7 @@ function normalizeItem(report) {
   };
 }
 
+// Function to update report stats, card on top of the page 
 function updateStats() {
   statTotal.textContent = analyses.length;
   statMalicious.textContent = analyses.filter(x => x.score >= 7).length;
@@ -94,6 +106,7 @@ function updateStats() {
   statClean.textContent = analyses.filter(x => x.score < 4).length;
 }
 
+// Function to filter prior reports
 function applyFilters() {
   const scoreFilter = filterScore.value;
 
@@ -110,6 +123,7 @@ function applyFilters() {
 
 filterScore.addEventListener("change", applyFilters);
 
+// Function to update the report table entries
 function renderTable() {
   if (filtered.length === 0) {
     alertBody.innerHTML = `<tr><td colspan="7">Sem Análises Realizadas</td></tr>`;
@@ -121,6 +135,7 @@ function renderTable() {
   const start = (currentPage - 1) * PAGE_SIZE;
   const page = filtered.slice(start, start + PAGE_SIZE);
 
+  // All the items must have the same name both here and in the html page
   alertBody.innerHTML = page.map(item => `<tr>
     <td>${formatTime(item.created_at)}</td>
     <td>${item.id ?? "-"}</td>
@@ -137,6 +152,7 @@ function renderTable() {
   renderPagination();
 }
 
+// Function to render pagination for there is more than one page, 20 reports per page
 function renderPagination() {
   const total = Math.ceil(filtered.length / PAGE_SIZE);
 
@@ -160,22 +176,26 @@ function goPage(page) {
 
 window.goPage = goPage;
 
+// Classifing the analysis based on its score
 function scoreBadge(score) {
   if (score >= 7) return `HIGH ${score}`;
   if (score >= 4) return `MED ${score}`;
   return `LOW ${score}`;
 }
 
+// Shortens the hash in case is to big to be displayed
 function shortHash(hash) {
-  return hash ? hash.slice(0, 12) + "..." : "-";
+  return hash ? hash.slice(0, 24) + "..." : "-";
 }
 
+// Time from last refresh
 function formatTime(time) {
   if (!time) return "-";
   const d = new Date(time);
   return isNaN(d.getTime()) ? String(time) : d.toLocaleString();
 }
 
+// Function to safely display text in html without being interpreted as markup
 function escapeHtml(text) {
   return String(text || "")
     .replace(/&/g, "&amp;")
@@ -185,27 +205,29 @@ function escapeHtml(text) {
     .replace(/'/g, "&#39;");
 }
 
+// Function to upload new reports
 async function uploadFile() {
   const file = fileInput.files[0];
-  if (!file){
-    alert("Nenhum ficheiro inserido");
+  if (!file){ // Checks if there is any file 
+    alert("ERROR -- No input file detected");
     return;
   }
+  // Create the payload
   const formData = new FormData();
   formData.append("file", file);
-  const response = await fetch(
+  const response = await fetch( // Call for the backend
     "/api/upload",
     {
-      method: "POST", 
+      method: "POST", // Post the new report to the database
       body:formData
     }
   );
   const result = await response.json();
   console.log(result);
-  alert("Uploade Completo");
+  alert("INFO -- Upload completed with success");
 
 }
-
+// Page refresh atributes
 refreshBtn.addEventListener("click", fetchData);
 setInterval(fetchData, 300000);
 fetchData();
