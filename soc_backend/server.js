@@ -8,6 +8,11 @@ const app = express();
 //const cors = require("cors");
 //app.use(cors());
 
+// Cache Vars for fetching reports
+let cache = null;
+let cacheTime = 0;
+const CACHE_TIMEOUT = 300000; // Max Time until the server goes fetching for reports (5 minutes)
+
 // Database path
 const DATA_DIR = path.join(__dirname, "Private");
 
@@ -23,22 +28,34 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
+// Helper function to load data from the database in a more eficient way
+async function loadAnalyses() {
+  const files = await fs.promises.readdir(DATA_DIR); // Gets the files from the designated directory
+  const jsonFiles = files.filter( f => f.endsWith(".json")); // Checks for only the ones in json, report file type
+
+  const analyses = await Promise.all(
+    jsonFiles.map(async file => {
+      const content = await fs.promises.readFile(path.join(DATA_DIR, file), "utf-8");
+      return JSON.parse(content);
+    })
+  );
+  return analyses
+}
+
 // Endpoint that returns all analysis JSON files
 app.get("/api/analyses", (req, res) => {
   try {
-    const files = fs.readdirSync(DATA_DIR); // Reads the database
+    if (cache && Date.now() - cacheTime < CACHE_TIMEOUT){
+      console.log("INFO -- No new reports, loading the ones in cache")
+      return res.json(cache); // If there is cache the server doesnt need to go fetch reports
+    }
 
-    const analyses = files // Keeps only JSON files 
-      .filter(f => f.endsWith(".json"))
-      .map(file => {
-        const content = fs.readFileSync( // Reads the file contents
-          path.join(DATA_DIR, file),
-          "utf-8"
-        );
-        return JSON.parse(content);
-      });
-
+    console.log("INFO -- New reports/no cache found fetching data")
+    const analyses = await loadAnalyses() // Keeps only JSON files
+    cache = analyses;
+    cacheTime = Date.now();
     res.json(analyses); // Sends it back to the frontend
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to read data" });
@@ -48,6 +65,7 @@ app.get("/api/analyses", (req, res) => {
 // Endpoint for file uploads
 app.post("/api/upload", upload.single("file"), (req, res) => {
   console.log("INFO -- Uploaded:", req.file);
+  cache = null
   res.json({success: true});
 });
 
