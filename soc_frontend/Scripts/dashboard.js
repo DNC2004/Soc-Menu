@@ -111,9 +111,9 @@ function applyFilters() {
   const scoreFilter = filterScore.value;
 
   filtered = analyses.filter(item => {
-    if (scoreFilter === "high" && item.score < 7) return false;
-    if (scoreFilter === "medium" && (item.score < 4 || item.score >= 7)) return false;
-    if (scoreFilter === "low" && item.score >= 4) return false;
+    if (scoreFilter === "high" && item.score < 10) return false;
+    if (scoreFilter === "medium" && (item.score < 5 || item.score >= 7)) return false;
+    if (scoreFilter === "low" && item.score >= 5) return false;
     return true;
   });
 
@@ -178,8 +178,8 @@ window.goPage = goPage;
 
 // Classifing the analysis based on its score
 function scoreBadge(score) {
-  if (score >= 7) return `HIGH ${score}`;
-  if (score >= 4) return `MED ${score}`;
+  if (score >= 10) return `HIGH ${score}`;
+  if (score >= 5) return `MED ${score}`;
   return `LOW ${score}`;
 }
 
