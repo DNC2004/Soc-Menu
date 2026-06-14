@@ -19,6 +19,7 @@ const fileInput = document.getElementById("fileInput")
 // Function to get analysis from the backend on server.js
 async function fetchData() {
   try {
+    console.log("DEBUG -- Fetching New Data")
     const response = await fetch("/api/analyses"); // Backend route
     const data = await response.json();
     analyses = normalizeAnalyses(data);
@@ -207,6 +208,7 @@ function escapeHtml(text) {
 
 // Function to upload new reports
 async function uploadFile() {
+  console.log("DEBUG -- Uploading new files")
   const file = fileInput.files[0];
   if (!file){ // Checks if there is any file 
     alert("ERROR -- No input file detected");
