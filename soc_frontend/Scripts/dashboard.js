@@ -112,7 +112,7 @@ function applyFilters() {
 
   filtered = analyses.filter(item => {
     if (scoreFilter === "high" && item.score < 10) return false;
-    if (scoreFilter === "medium" && (item.score < 5 || item.score >= 7)) return false;
+    if (scoreFilter === "medium" && (item.score < 5 || item.score >= 10)) return false;
     if (scoreFilter === "low" && item.score >= 5) return false;
     return true;
   });
