@@ -47,12 +47,10 @@ app.get("/api/analyses", async (req, res) => {
   try {
     if (cache && Date.now() - cacheTime < CACHE_TIMEOUT){
       console.log("INFO -- No new reports, loading the ones in cache")
-      alert("INFO -- No new reports, loading the ones in cache")
       return res.json(cache); // If there is cache the server doesnt need to go fetch reports
     }
 
     console.log("INFO -- New reports/no cache found fetching data")
-    alert("INFO -- No new reports, loading the ones in cache")
     const analyses = await loadAnalyses()
     cache = analyses;
     cacheTime = Date.now();
