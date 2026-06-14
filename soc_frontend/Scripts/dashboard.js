@@ -101,9 +101,9 @@ function normalizeItem(report) {
 // Function to update report stats, card on top of the page 
 function updateStats() {
   statTotal.textContent = analyses.length;
-  statMalicious.textContent = analyses.filter(x => x.score >= 7).length;
-  statSuspicious.textContent = analyses.filter(x => x.score >= 4 && x.score < 7).length;
-  statClean.textContent = analyses.filter(x => x.score < 4).length;
+  statMalicious.textContent = analyses.filter(x => x.score >= 10).length;
+  statSuspicious.textContent = analyses.filter(x => x.score >= 5 && x.score < 10).length;
+  statClean.textContent = analyses.filter(x => x.score < 5).length;
 }
 
 // Function to filter prior reports
