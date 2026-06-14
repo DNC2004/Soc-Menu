@@ -43,7 +43,7 @@ async function loadAnalyses() {
 }
 
 // Endpoint that returns all analysis JSON files
-app.get("/api/analyses", (req, res) => {
+app.get("/api/analyses", async (req, res) => {
   try {
     if (cache && Date.now() - cacheTime < CACHE_TIMEOUT){
       console.log("INFO -- No new reports, loading the ones in cache")
@@ -51,7 +51,7 @@ app.get("/api/analyses", (req, res) => {
     }
 
     console.log("INFO -- New reports/no cache found fetching data")
-    const analyses = await loadAnalyses() // Keeps only JSON files
+    const analyses = await loadAnalyses()
     cache = analyses;
     cacheTime = Date.now();
     res.json(analyses); // Sends it back to the frontend
