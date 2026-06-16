@@ -14,20 +14,40 @@ const statTotal = document.getElementById("statTotal");
 const statMalicious = document.getElementById("statMalicious");
 const statSuspicious = document.getElementById("statSuspicious");
 const statClean = document.getElementById("statClean");
-const fileInput = document.getElementById("fileInput")
+const fileInput = document.getElementById("fileInput");
+
+// Cache parameters for storing reports on the browser session
+let browserCache = null;
+let browserCacheTime = 0;
+const BROWSER_CACHE_TIMEOUT = 300000; // Max Time until the server goes fetching for reports (5 minutes)
 
 // Function to get analysis from the backend on server.js
 async function fetchData() {
   try {
-    console.log("DEBUG -- Fetching New Data")
+
+    // Checking if there exists any reports on cache
+    if (browserCache && Date.now() - browserCacheTime < BROWSER_CACHE_TIMEOUT){
+      console.log("INFO -- Using browser cache, skipping fetch");
+      const response = await fetch("/api/analyses"); // Backend route
+      const data = await response.json();
+      analyses = normalizeAnalyses(data);
+      return analyses;
+      
+    }
+
+    console.log("INFO -- No browser cache found, fetching new data")
     const response = await fetch("/api/analyses"); // Backend route
     const data = await response.json();
     analyses = normalizeAnalyses(data);
+
+    // Updating the cache parameters
+    browserCache = analyses;
+    browserCacheTime = Date.now();
+
     // Update the page
     updateStats();
     applyFilters();
-    document.getElementById("lastUpdated").textContent =
-      new Date().toLocaleTimeString();
+    document.getElementById("lastUpdated").textContent = new Date().toLocaleTimeString();
     return analyses;
 
   } catch (err) {
@@ -208,7 +228,7 @@ function escapeHtml(text) {
 
 // Function to upload new reports
 async function uploadFile() {
-  console.log("DEBUG -- Uploading new files")
+  console.log("INFO -- Uploading new files")
   const file = fileInput.files[0];
   if (!file){ // Checks if there is any file 
     alert("ERROR -- No input file detected");
@@ -226,6 +246,13 @@ async function uploadFile() {
   );
   const result = await response.json();
   console.log(result);
+
+  // Resetting the cache parameters
+  console.log("INFO -- Resetting browser cache")
+  browserCache = null;
+  browserCacheTime = 0;
+  console.log("INFO -- Browser cache reset")
+
   alert("INFO -- Upload completed with success");
 
 }
