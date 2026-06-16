@@ -1,3 +1,4 @@
 /node_modules
 package-lock.json
 package.json
+soc_backend/wazuh_manager.ps1
