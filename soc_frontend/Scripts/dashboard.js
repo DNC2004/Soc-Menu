@@ -19,7 +19,7 @@ const fileInput = document.getElementById("fileInput");
 // Cache parameters for storing reports on the browser session
 let browserCache = null;
 let browserCacheTime = 0;
-const BROWSER_CACHE_TIMEOUT = 300000; // Max Time until the server goes fetching for reports (5 minutes)
+const BROWSER_CACHE_TIMEOUT = 600000; // Max Time until the server goes fetching for reports (10 minutes)
 
 // Function to get analysis from the backend on server.js
 async function fetchData() {
@@ -259,5 +259,5 @@ async function uploadFile() {
 }
 // Page refresh atributes
 refreshBtn.addEventListener("click", fetchData);
-setInterval(fetchData, 300000);
+setInterval(fetchData, 150000);
 fetchData();
