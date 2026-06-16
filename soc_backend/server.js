@@ -11,7 +11,7 @@ const app = express();
 // Cache Vars for fetching reports
 let cache = null;
 let cacheTime = 0;
-const CACHE_TIMEOUT = 300000; // Max Time until the server goes fetching for reports (5 minutes)
+const CACHE_TIMEOUT = 600000; // Max Time until the server goes fetching for reports (10 minutes)
 
 // Database path
 const DATA_DIR = path.join(__dirname, "Private");
