@@ -36,6 +36,8 @@ async function fetchData() {
       
     }
 
+    if (browserCacheTime == BROWSER_CACHE_TIMEOUT){console.log("INFO -- Cache timeout, fetching new data");}
+
     console.log("INFO -- No browser cache found, fetching new data")
     const response = await fetch("/api/analyses"); // Backend route
     const data = await response.json();
