@@ -26,6 +26,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-y: auto;
 }
 
 /* ── Back link ── */
@@ -250,7 +251,7 @@ body {
 }
 .filter-select:focus { border-color: var(--accent); }
 
-.table-wrap { overflow-x: auto; flex: 1; }
+.table-wrap { overflow-x: auto; overflow-y:visible; flex: 1; }
 .alert-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .alert-table thead th {
   padding: 0.6rem 1rem;
