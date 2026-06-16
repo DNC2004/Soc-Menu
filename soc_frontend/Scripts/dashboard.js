@@ -28,7 +28,7 @@ async function fetchData() {
     // Checking if there exists any reports on cache
     if (browserCache && Date.now() - browserCacheTime < BROWSER_CACHE_TIMEOUT){
       console.log("INFO -- Using browser cache, skipping fetch");
-      console.log(`DEBUG -- Storede cache:${browserCache}`)
+      // console.log(`DEBUG -- Storede cache:${browserCache}`)
       analyses = browserCache;
       updateStats();
       applyFilters();
