@@ -258,4 +258,5 @@ Both services communicate over the internal `soc-network` bridge network.
 ---
 
 *ENIDH — LEIC 2026 — 3rd Year Final Project*
+
 *Final Classification — 18 (0-20)*
